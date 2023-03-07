@@ -1,0 +1,180 @@
+@import"https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap";
+:root {
+    --first-color: hsl(354, 78%, 60%);
+    --button-color: hsl(0, 0%, 17%);
+    --button-color-alt: hsl(0, 0%, 21%);
+    --card-color: hsl(0, 0%, 90%);
+    --title-color: hsl(0, 0%, 15%);
+    --text-color: hsl(0, 0%, 35%);
+    --text-color-light: hsl(0, 0%, 55%);
+    --body-color: hsl(206, 4%, 97%);
+    --container-color: hsl(0, 0%, 100%);
+    --border-color: hsl(0, 0%, 94%);
+    --h-menu: 75px;
+    --z-menu: 2000:
+
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Roboto;
+}
+
+body{
+    background-color: var(--body-color);
+}
+
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+/* NAVBAR */
+ul {
+    list-style: none;
+}
+
+.nav_logo-icon{
+    width: 50px;
+}
+
+.navbar__p{
+    font-weight: bold;
+    
+}
+
+img{
+    width: 100%;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+    color: inherit;
+}
+
+.navbar{
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--h-menu);
+    padding: 0 1rem;
+    position: fixed;
+    z-index: var(--z-menu);
+    width: 100%;
+    transition: background-color 0.5s, color 0.5s, height 0.5s;
+
+}
+.home{
+    color: var(--first-color);
+}
+.menu{
+    position: fixed;
+    background-color: #ffffff;
+    top: var(--h-menu);
+    left: 100%;
+    width: 100%;
+    height: calc(100% - var(--h-menu));
+    z-index: var(--z-menu);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    gap: 1rem;
+    transition: left 0.5s;
+}
+
+.menu__show{
+    left: 0;
+
+}
+
+.navbar .bxs-dashboard{
+    font-size: 2rem;
+    color: #000;
+    cursor: pointer;
+}
+
+.navbar__logo{
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+}
+
+.navbar__logo h2{
+    font-size: medium;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+.navbar__logo svg{
+    width: 40px;
+}
+
+.navbar__active {
+    background-color:#ffffff;
+    color: #000;
+    height: calc(var(--h-menu) + 0.5rem);
+    height: calc(--h-menu) + 1rem;
+}
+
+
+
+
+/* BANNE */
+
+.box__banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.box__banner__content{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.box__banner__content div:nth-child(1){
+    width: 50%;
+}
+
+.box__banner__content__img{
+    height: 10%;
+    margin-right: 0.2rem;
+   
+    display: flex;
+    justify-self:flex-end;
+
+}
+
+.box__banner__content__img__product{
+    
+    background-color: var(--first-color);
+    display: flex;
+    align-items: center;
+}
+
+
+
+.box__banner__text__price{
+    color: var(--first-color);
+    font-size: large;
+    font-weight: 700;
+    
+}
+
+.box__banner__text__h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.box__banner__text__product{
+    color: var(--text-color-light);
+}
