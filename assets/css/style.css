@@ -11,7 +11,8 @@
     --container-color: hsl(0, 0%, 100%);
     --border-color: hsl(0, 0%, 94%);
     --h-menu: 50px;
-    --z-menu: 2000;
+    --z-menu: 1000;
+    --z-menu2: 2000;
 
 }
 
@@ -110,6 +111,11 @@ a{
     cursor: pointer;
 }
 
+.navbar .bx-shopping-bag{
+    cursor: pointer;
+    z-index: var(--z-menu2) ;
+}
+
 .navbar__logo{
     padding: 0.5rem;
     display: flex;
@@ -200,6 +206,100 @@ a{
     font-weight: 900;
     width: 150px ;
     height: 50px;
+    
+}
+
+
+
+/*------------------------------------------------------- card product -----------------------------------------------------------------*/
+
+
+.products {
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    max-width: 1024px;
+    margin: 0 auto;
+    gap: 1rem;
+
+}
+
+.product {
+
+    border-radius: 1rem;
+    background-color: var(--card-color);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)
+}
+
+.product__info{
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0 0 1rem 1rem;
+}
+
+.bx-plus{
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 1rem;
+
+}
+
+.product__info h4{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.product__info span{
+    color: var(--text-color-light);
+    font-size: small;
+    font-weight: 100;
+}
+
+.product__info h3{
+    font-size: medium;
+}
+
+
+/*-------------------------------------------------- cart -----------------------------------------------------------------------*/
+
+.cart{
+    height: calc(100vh - var(--h-menu));
+    width: 100%;
+    background-color: var(--body-color);
+    position: fixed;
+    top: 0;
+    right: 100%;
+    z-index: var(--z-menu2);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.cart__show{
+    right: 0;
+}
+
+.card__products{
+    background-color: blue;
+    height: 85%;
+}
+
+.card__total{
+    background-color: green;
+    height: 15%;
+    
+}
+
+.bx-x-circle{
+    cursor: pointer;
+    
     
 }
 
