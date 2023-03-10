@@ -47,7 +47,6 @@ function printProducts(db) {
     productsHTML.innerHTML = html;
 }
 
-
 function handleShowCart() {
     const iconShoppingHTML = document.querySelector('.bx-shopping-bag');
     const cartHTML = document.querySelector('.cart');
@@ -85,10 +84,63 @@ function addToCartFromProducts(db) {
             }
 
             window.localStorage.setItem("cart", JSON.stringify(db.cart))
-            console.log(db);
+            printProductsCard(db)
         }
     });
 }
+
+function nightIconChange() {
+    const iconMoon = document.querySelector(".bx-moon")
+    const iconSun = document.querySelector(".bx-sun")
+
+    iconMoon.addEventListener('click', function () {
+    iconSun.classList.toggle("see"),
+    iconMoon.classList.toggle("see")
+
+    
+});
+    iconSun.addEventListener('click', function () {
+    iconSun.classList.toggle("see"),
+    iconMoon.classList.toggle("see")
+
+    
+});  
+}
+
+function printProductsCard(db) {
+    const cardProducts = document.querySelector(".card__products");
+    let html = ''
+        for (const product in db.cart) {
+            const {quantity, price, name, image, id, amount} = db.cart[product];
+
+            console.log({ quantity, price, name, image, id, amount });
+            html += `
+                <div class="card__product">
+
+                    <div class="card__product--img">
+                        <img src="${image}" alt="imagen"/>
+                    </div>
+
+                    <div class="card__product--body">
+                        <h4>${name} </h4>
+                        <p>Stock: ${quantity} | <span>$${price.toFixed(2)}</span></p>
+                        <p>Subtotal: $</p>
+
+                        <div class="card__product--body-op" id='${id}'>
+                        <i class='bx bx-minus-circle' ></i>
+                            <span>${amount} unit</span>
+                            <i class='bx bx-plus-circle' ></i>
+                            <i class='bx bxs-trash' ></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+           
+        }
+        cardProducts.innerHTML = html;
+}
+
+
 
 async function main() {
     const db = {
@@ -99,11 +151,26 @@ async function main() {
     };
 
     printProducts(db);
-    handleShowCart()
-    addToCartFromProducts(db)
-    
+    handleShowCart();
+    addToCartFromProducts(db);
+    nightIconChange();
+    printProductsCard(db);
 
 
+    const cardProductsHTML = document.querySelector('.card__products');
+    cardProductsHTML.addEventListener("click", function(e){
+        if (e.target.classList.contains("bx-plus-circle")){
+            console.log(e.target.parentElement.id);
+        }
+
+        if (e.target.classList.contains("bx-minus-circle")){
+            console.log("quieres restar");
+        }
+
+        if (e.target.classList.contains("bxs-trash")){
+            console.log("quieres eliminar");
+        }
+    });
 }
 main()
 
