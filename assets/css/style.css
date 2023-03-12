@@ -117,7 +117,25 @@ a{
 .navbar .bx-shopping-bag{
     cursor: pointer;
     position: relative;
-    z-index: var(--z-menu2) ;
+    z-index: var(--z-menu2);
+    
+}
+
+.amount__product{
+    width: 15px;
+    height: 15px;
+    font-size: 0.5rem;
+    background-color: #000;
+    color: #ffffff;
+    display: inline-block;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -3px;
+    top: 8px;
 }
 
 
@@ -272,6 +290,15 @@ a{
     font-weight: 100;
 }
 
+.product__info .soldout{
+    display: inline-block;
+    font-weight: bold;
+    color: var(--button-color-alt);
+    background-color: var(--first-color);
+    padding: 0.3rem 1rem;
+    border-radius: 0.5rem;
+}
+
 .product__info h3{
     font-size: medium;
 }
@@ -352,9 +379,35 @@ a{
 }
 
 .card__total{
-    background-color: green;
     height: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    padding-top: 0;
+    gap: 0.5rem;
     
+}
+
+.card__total--info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+
+.btn__buy{
+    
+    padding: 0.5rem;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .bx-x-circle{
@@ -362,7 +415,6 @@ a{
     
     
 }
-
 
 
 /*-------------------------------------------------- footer ------------------------------------------------------------------------ */

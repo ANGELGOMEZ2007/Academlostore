@@ -20,6 +20,7 @@ function printProducts(db) {
     let html = "";
 
     for (const product of db.products) {
+        const buttonAdd = product.quantity ? `<i class='bx bx-plus' id='${product.id}'></i>` : "<span class='soldout'>Sold out</span>";
         html += `
         <div class="product">
             <div class="product__img">
@@ -31,7 +32,7 @@ function printProducts(db) {
             <div class="product__info">
                 <h4>
                     $${product.price.toFixed(2)} <span><b>Stock</b>: ${product.quantity}</span> 
-                    <i class='bx bx-plus' id='${product.id}'></i>
+                    ${buttonAdd}
                 </h4>
 
 
@@ -84,7 +85,9 @@ function addToCartFromProducts(db) {
             }
 
             window.localStorage.setItem("cart", JSON.stringify(db.cart))
-            printProductsCard(db)
+            printProductsCard(db);
+            totalSumPriceItem(db);
+            hanlePrintAmountProducts(db)
         }
     });
 }
@@ -112,7 +115,8 @@ function printProductsCard(db) {
     let html = ''
         for (const product in db.cart) {
             const {quantity, price, name, image, id, amount} = db.cart[product];
-
+            const total = price * amount;
+            
             console.log({ quantity, price, name, image, id, amount });
             html += `
                 <div class="card__product">
@@ -124,7 +128,7 @@ function printProductsCard(db) {
                     <div class="card__product--body">
                         <h4>${name} </h4>
                         <p>Stock: ${quantity} | <span>$${price.toFixed(2)}</span></p>
-                        <p>Subtotal: $</p>
+                        <p>Subtotal: $${total.toFixed(2)}</p>
 
                         <div class="card__product--body-op" id='${id}'>
                         <i class='bx bx-minus-circle' ></i>
@@ -140,7 +144,111 @@ function printProductsCard(db) {
         cardProducts.innerHTML = html;
 }
 
+function sumRestDeleteCart(db) {
+    const cardProductsHTML = document.querySelector('.card__products');
+    cardProductsHTML.addEventListener("click", function(e){
+        if (e.target.classList.contains("bx-plus-circle")){
+            const id = Number(e.target.parentElement.id);
+            const productFind = db.products.find(
+                (product) => product.id === id
+            );
 
+            if (productFind.quantity === db.cart[productFind.id].amount) 
+                return alert("No tenemos mas en bodega");
+
+            db.cart[id].amount++;
+        }
+
+        if (e.target.classList.contains("bx-minus-circle")){
+            const id = Number(e.target.parentElement.id);
+            if (db.cart[id].amount === 1) {
+                const response = confirm('Estas seguro que quieres eliminar este producto?');
+                if (!response) return
+                delete db.cart[id];
+            }else{
+                db.cart[id].amount--;
+            }
+        }
+
+        if (e.target.classList.contains("bxs-trash")){
+            const id = Number(e.target.parentElement.id);
+            const response = confirm('Estas seguro que quieres eliminar este producto?');
+                if (!response) return
+            delete db.cart[id];
+        }
+        window.localStorage.setItem('cart',JSON.stringify(db.cart))
+        printProductsCard(db);
+        totalSumPriceItem(db);
+        hanlePrintAmountProducts(db);
+    });
+    
+}
+
+function totalSumPriceItem(db) {
+    const infoTotal = document.querySelector('.info__total');
+    const infoAmount = document.querySelector('.info__amount');
+    
+    let totalProducts = 0;
+    let amountProducts = 0;
+
+    for (const product in db.cart) {
+        const {amount, price} = db.cart[product];
+        totalProducts += price * amount;
+        amountProducts += amount;
+    }
+    infoTotal.textContent = "$" + totalProducts.toFixed(2);
+    
+    if (amountProducts == 1) {
+        infoAmount.textContent = amountProducts+ " item";
+    }else{
+    infoAmount.textContent = amountProducts+ " items";
+    }
+    
+}
+
+function handleTotal(db) {
+    const btnBuy = document.querySelector('.btn__buy');
+    btnBuy.addEventListener('click', function(){
+        if(!Object.values(db.cart).length)
+            return alert("Por favor elija algo primero");
+        const response = confirm('Seguro que quiere comprar estos productos?');
+        if(!response) return;
+
+        const currentProducts = [];
+
+        for (const product of db.products) {
+            const productCart = db.cart[product.id];
+            if(product.id === productCart?.id){
+                currentProducts.push({
+                    ...product,
+                    quantity: product.quantity - productCart.amount,
+                });
+            }else{
+                currentProducts.push(product);
+            }
+            
+        }
+        db.products = currentProducts;
+        db.cart = {}
+        window.localStorage.setItem('products', JSON.stringify(db.products));
+        window.localStorage.setItem('cart', JSON.stringify(db.cart));
+        totalSumPriceItem(db);
+        printProductsCard(db);
+        printProducts(db);
+        hanlePrintAmountProducts(db);
+    });
+}
+
+function hanlePrintAmountProducts(db) {
+    const amountProducts = document.querySelector('.amount__product');
+    let amount = 0;
+
+    for (const product in db.cart) {
+        amount += db.cart[product].amount;
+    }
+
+    amountProducts.textContent = amount;
+}
 
 async function main() {
     const db = {
@@ -155,22 +263,13 @@ async function main() {
     addToCartFromProducts(db);
     nightIconChange();
     printProductsCard(db);
-
-
-    const cardProductsHTML = document.querySelector('.card__products');
-    cardProductsHTML.addEventListener("click", function(e){
-        if (e.target.classList.contains("bx-plus-circle")){
-            console.log(e.target.parentElement.id);
-        }
-
-        if (e.target.classList.contains("bx-minus-circle")){
-            console.log("quieres restar");
-        }
-
-        if (e.target.classList.contains("bxs-trash")){
-            console.log("quieres eliminar");
-        }
-    });
+    sumRestDeleteCart(db);
+    totalSumPriceItem(db);
+    handleTotal(db);
+    hanlePrintAmountProducts(db);
+    
+    
+   
 }
 main()
 

@@ -40,7 +40,7 @@
                 <div class="navbar__icon">
                     <i class='bx bx-moon '></i> 
                     <i class='bx bx-sun see'></i>
-                    <i class='bx bx-shopping-bag'></i>
+                    <i class='bx bx-shopping-bag'><span class="amount__product"></span></i>
                     <i class='bx bxs-dashboard' id="dashboard"></i>
                     
                 </div>
@@ -108,7 +108,14 @@
 <div class="cart">
     <i class='bx bx-x-circle' ></i>
     <div class="card__products"></div>
-    <div class="card__total"></div>
+    <div class="card__total">
+        <div class="card__total--info">
+            <span class="info__amount"></span>
+            <span class="info__total"></span>
+            
+        </div>
+        <button class="btn__buy">Comprar</button>
+    </div>
 </div>
 
 
