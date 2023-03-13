@@ -34,7 +34,7 @@ function printProducts(db) {
                     $${product.price.toFixed(2)} <span><b>Stock</b>: ${product.quantity}</span> 
                     ${buttonAdd}
                 </h4>
-
+                
 
                 <h3>${product.name}</h3>
                 

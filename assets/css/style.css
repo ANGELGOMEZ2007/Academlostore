@@ -27,6 +27,7 @@ body{
     background-color: var(--body-color);
     
 }
+
 .box__banner__father{
     display: flex;
     justify-content: center;
@@ -136,6 +137,7 @@ a{
     position: absolute;
     right: -3px;
     top: 8px;
+
 }
 
 
@@ -249,32 +251,49 @@ a{
     max-width: 1024px;
     margin: 0 auto;
     gap: 1rem;
-
+    
 }
 
 .product {
-
+    
     border-radius: 1rem;
     background-color: var(--card-color);
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)
+    box-shadow: 0 .5rem 1rem rgba(55, 54, 54, 0.084); 
+    
 }
 
 .product__info{
     height: 150px;
     display: flex;
     flex-direction: column;
-    
     padding: 2rem;
     background-color: #ffffff;
     border-radius: 0 0 1rem 1rem;
+    position: relative;
+    
+}
+
+.bottom__plus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1rem;
+    height: 1rem;
+    
+    
 }
 
 .bx-plus{
+    padding: 0.5rem;
     display: flex;
     align-items: center;
     background-color: #ffffff;
-    border-radius: 1rem;
-
+    border-radius: 50%;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.20);
+    position: absolute;
+    top: -13px;
+    right: 21px;
+    z-index: 500;
 }
 
 .product__info h4{
