@@ -387,6 +387,7 @@ a {
     flex-direction: column;
     padding: 1rem;
     transition: right 0.3s;
+    padding-bottom: 5rem;
 }
 
 .cart__show {
@@ -402,7 +403,6 @@ a {
 }
 
 .card__product {
-
     padding: 1rem;
     display: flex;
     gap: 1rem;
