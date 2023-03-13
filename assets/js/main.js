@@ -268,7 +268,18 @@ async function main() {
     handleTotal(db);
     hanlePrintAmountProducts(db);
     
-    
+    function modeDark() {
+        const iconMoon = document.querySelector(".bx-moon");
+        const iconSun = document.querySelector(".bx-sun");
+        iconMoon.addEventListener("click", function (){
+            document.body.classList.toggle("darkmode");
+        });
+        iconSun.addEventListener("click", function (){
+            document.body.classList.toggle("darkmode");
+        });
+        
+    }
+    modeDark()
    
 }
 main()
@@ -303,12 +314,15 @@ iconMenu.addEventListener('click', function () {
 })
 
 const navbar = document.querySelector("#navbar");
+const container = document.querySelector(".container")
 
 window.addEventListener("scroll", function () {
-    if (window.scrollY > 250) {
-        navbar.classList.add("navbar__active")
+    if (window.scrollY > 50) {
+        /*  navbar.classList.add("navbar__active"); */
+        container.classList.add("navbar__active");
     } else {
-        navbar.classList.remove("navbar__active")
+        /* navbar.classList.remove("navbar__active"); */
+        container.classList.remove("navbar__active");
     }
 
 
