@@ -20,27 +20,31 @@ function printProducts(db) {
     let html = "";
 
     for (const product of db.products) {
-        const buttonAdd = product.quantity ? `<i class='bx bx-plus' id='${product.id}'></i>` : "<span class='soldout'>Sold out</span>";
+
         html += `
-        <div class="product">
-            <div class="product__img">
-                <img src="${product.image}" alt="imagen" />
-            </div>
+            <div class="product mix ${product.category}">
+                <div class="product__img">
+                    <img src="${product.image}" alt="imagen" />
+                </div>
 
-            
-
-            <div class="product__info">
-                <h4>
-                    $${product.price.toFixed(2)} <span><b>Stock</b>: ${product.quantity}</span> 
-                    ${buttonAdd}
-                </h4>
                 
 
-                <h3>${product.name}</h3>
-                
-            </div>
+                <div class="product__info">
+                    <h4>
+                        $${product.price.toFixed(2)} 
+                        ${product.quantity ? `<span><b>Stock</b>: ${product.quantity}</span> ` : "<span class='soldout'>Sold out</span>"}
+                        ${product.quantity ? `<i class='bx bx-plus' id='${product.id}'></i>` : ''}
+                    </h4>
+                    
 
-        </div>
+                    <h3>${product.name}
+                    ${product.category}
+                    </h3>
+                    
+                </div>
+
+            </div>
+        
         `;
     }
 
@@ -53,14 +57,14 @@ function handleShowCart() {
     const cartHTML = document.querySelector('.cart');
     const iconXcircle = document.querySelector('.bx-x-circle');
 
-    iconShoppingHTML.addEventListener('click', function(){
+    iconShoppingHTML.addEventListener('click', function () {
         cartHTML.classList.toggle("cart__show")
     });
 
-    iconXcircle.addEventListener('click', function() {
+    iconXcircle.addEventListener('click', function () {
         cartHTML.classList.toggle("cart__show")
     });
-    
+
 }
 
 function addToCartFromProducts(db) {
@@ -69,7 +73,7 @@ function addToCartFromProducts(db) {
     productsHTML.addEventListener("click", function (e) {
         if (e.target.classList.contains("bx-plus")) {
             const id = Number(e.target.id)
-        
+
             const productFind = db.products.find(
                 (product) => product.id === id
             );
@@ -77,11 +81,11 @@ function addToCartFromProducts(db) {
             if (db.cart[productFind.id]) {
                 if (productFind.quantity === db.cart[productFind.id].amount) {
                     return alert("No tenemos mas en bodega");
-                    
+
                 }
                 db.cart[productFind.id].amount++;
             } else {
-                db.cart[productFind.id] = { ...productFind, amount: 1};
+                db.cart[productFind.id] = { ...productFind, amount: 1 };
             }
 
             window.localStorage.setItem("cart", JSON.stringify(db.cart))
@@ -97,28 +101,28 @@ function nightIconChange() {
     const iconSun = document.querySelector(".bx-sun")
 
     iconMoon.addEventListener('click', function () {
-    iconSun.classList.toggle("see"),
-    iconMoon.classList.toggle("see")
+        iconSun.classList.toggle("see"),
+            iconMoon.classList.toggle("see")
 
-    
-});
+
+    });
     iconSun.addEventListener('click', function () {
-    iconSun.classList.toggle("see"),
-    iconMoon.classList.toggle("see")
+        iconSun.classList.toggle("see"),
+            iconMoon.classList.toggle("see")
 
-    
-});  
+
+    });
 }
 
 function printProductsCard(db) {
     const cardProducts = document.querySelector(".card__products");
     let html = ''
-        for (const product in db.cart) {
-            const {quantity, price, name, image, id, amount} = db.cart[product];
-            const total = price * amount;
-            
-            console.log({ quantity, price, name, image, id, amount });
-            html += `
+    for (const product in db.cart) {
+        const { quantity, price, name, image, id, amount } = db.cart[product];
+        const total = price * amount;
+
+        console.log({ quantity, price, name, image, id, amount });
+        html += `
                 <div class="card__product">
 
                     <div class="card__product--img">
@@ -131,7 +135,7 @@ function printProductsCard(db) {
                         <p>Subtotal: $${total.toFixed(2)}</p>
 
                         <div class="card__product--body-op" id='${id}'>
-                        <i class='bx bx-minus-circle' ></i>
+                            <i class='bx bx-minus-circle' ></i>
                             <span>${amount} unit</span>
                             <i class='bx bx-plus-circle' ></i>
                             <i class='bx bxs-trash' ></i>
@@ -139,94 +143,94 @@ function printProductsCard(db) {
                     </div>
                 </div>
             `;
-           
-        }
-        cardProducts.innerHTML = html;
+
+    }
+    cardProducts.innerHTML = html;
 }
 
 function sumRestDeleteCart(db) {
     const cardProductsHTML = document.querySelector('.card__products');
-    cardProductsHTML.addEventListener("click", function(e){
-        if (e.target.classList.contains("bx-plus-circle")){
+    cardProductsHTML.addEventListener("click", function (e) {
+        if (e.target.classList.contains("bx-plus-circle")) {
             const id = Number(e.target.parentElement.id);
             const productFind = db.products.find(
                 (product) => product.id === id
             );
 
-            if (productFind.quantity === db.cart[productFind.id].amount) 
+            if (productFind.quantity === db.cart[productFind.id].amount)
                 return alert("No tenemos mas en bodega");
 
             db.cart[id].amount++;
         }
 
-        if (e.target.classList.contains("bx-minus-circle")){
+        if (e.target.classList.contains("bx-minus-circle")) {
             const id = Number(e.target.parentElement.id);
             if (db.cart[id].amount === 1) {
                 const response = confirm('Estas seguro que quieres eliminar este producto?');
                 if (!response) return
                 delete db.cart[id];
-            }else{
+            } else {
                 db.cart[id].amount--;
             }
         }
 
-        if (e.target.classList.contains("bxs-trash")){
+        if (e.target.classList.contains("bxs-trash")) {
             const id = Number(e.target.parentElement.id);
             const response = confirm('Estas seguro que quieres eliminar este producto?');
-                if (!response) return
+            if (!response) return
             delete db.cart[id];
         }
-        window.localStorage.setItem('cart',JSON.stringify(db.cart))
+        window.localStorage.setItem('cart', JSON.stringify(db.cart))
         printProductsCard(db);
         totalSumPriceItem(db);
         hanlePrintAmountProducts(db);
     });
-    
+
 }
 
 function totalSumPriceItem(db) {
     const infoTotal = document.querySelector('.info__total');
     const infoAmount = document.querySelector('.info__amount');
-    
+
     let totalProducts = 0;
     let amountProducts = 0;
 
     for (const product in db.cart) {
-        const {amount, price} = db.cart[product];
+        const { amount, price } = db.cart[product];
         totalProducts += price * amount;
         amountProducts += amount;
     }
     infoTotal.textContent = "$" + totalProducts.toFixed(2);
-    
+
     if (amountProducts == 1) {
-        infoAmount.textContent = amountProducts+ " item";
-    }else{
-    infoAmount.textContent = amountProducts+ " items";
+        infoAmount.textContent = amountProducts + " item";
+    } else {
+        infoAmount.textContent = amountProducts + " items";
     }
-    
+
 }
 
 function handleTotal(db) {
     const btnBuy = document.querySelector('.btn__buy');
-    btnBuy.addEventListener('click', function(){
-        if(!Object.values(db.cart).length)
+    btnBuy.addEventListener('click', function () {
+        if (!Object.values(db.cart).length)
             return alert("Por favor elija algo primero");
         const response = confirm('Seguro que quiere comprar estos productos?');
-        if(!response) return;
+        if (!response) return;
 
         const currentProducts = [];
 
         for (const product of db.products) {
             const productCart = db.cart[product.id];
-            if(product.id === productCart?.id){
+            if (product.id === productCart?.id) {
                 currentProducts.push({
                     ...product,
                     quantity: product.quantity - productCart.amount,
                 });
-            }else{
+            } else {
                 currentProducts.push(product);
             }
-            
+
         }
         db.products = currentProducts;
         db.cart = {}
@@ -250,6 +254,61 @@ function hanlePrintAmountProducts(db) {
     amountProducts.textContent = amount;
 }
 
+function navbarMenuMove() {
+    
+
+
+    const iconMenu = document.querySelector("#dashboard")
+    const menu = document.querySelector("#menu")
+    
+    iconMenu.addEventListener('click', function () {
+        menu.classList.toggle("menu__show")
+    })
+    
+    /* const navbar = document.querySelector("#navbar"); */
+    const container = document.querySelector(".container")
+    
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+            /*  navbar.classList.add("navbar__active"); */
+            container.classList.add("navbar__active");
+        } else {
+            /* navbar.classList.remove("navbar__active"); */
+            container.classList.remove("navbar__active");
+        }
+    
+    
+    });
+}
+
+function modeDark() {
+    const iconMoon = document.querySelector(".bx-moon");
+    const iconSun = document.querySelector(".bx-sun");
+    iconMoon.addEventListener("click", function () {
+        document.body.classList.toggle("darkmode");
+        if (document.body.classList.contains("darkmode")) {
+            localStorage.setItem('dark-mode', 'true');
+        } else {
+            localStorage.setItem('dark-mode', 'false');
+        }
+    });
+    iconSun.addEventListener("click", function () {
+        document.body.classList.toggle("darkmode");
+        if (document.body.classList.contains("darkmode")) {
+            localStorage.setItem('dark-mode', 'true');
+        } else {
+            localStorage.setItem('dark-mode', 'false');
+        }
+    });
+
+    if (localStorage.getItem('dark-mode') === 'true') {
+        document.body.classList.add('darkmode');
+    }else{
+        document.body.classList.add('dark-mode');
+    }
+    
+}
+
 async function main() {
     const db = {
         products:
@@ -267,29 +326,42 @@ async function main() {
     totalSumPriceItem(db);
     handleTotal(db);
     hanlePrintAmountProducts(db);
-    
-    function modeDark() {
-        const iconMoon = document.querySelector(".bx-moon");
-        const iconSun = document.querySelector(".bx-sun");
-        iconMoon.addEventListener("click", function (){
-            document.body.classList.toggle("darkmode");
-        });
-        iconSun.addEventListener("click", function (){
-            document.body.classList.toggle("darkmode");
-        });
-
-        if (document.body.classList.contains("darkmode")) {
-            localStorage.setItem('dark-mode','true');
-        }else{
-            localStorage.setItem('dark-mode','false');
-        }
-    }
+    navbarMenuMove()
     modeDark()
    
+
+
 }
 main()
 
 
+$(function(){
+    $('#productsangel').on('mixLoad', function() {
+      console.log('[event-handler] MixItUp Loaded');
+    });
+    
+    $('#productsangel').on('mixStart', function() {
+      console.log('[event-handler] Animation Started')
+    });
+    
+    $('#productsangel').on('mixEnd', function() {
+      console.log('[event-handler] Animation Ended')
+    });
+    
+    $('#productsangel').mixItUp({
+      callbacks: {
+        onMixLoad: function() {
+          console.log('[callback] MixItUp Loaded');
+        },
+        onMixStart: function() {
+          console.log('[callback] Animation Started');
+        },
+        onMixEnd: function() {
+          console.log('[callback] Animation Ended');
+        }
+      }
+    });
+  });
 
 
 
@@ -309,26 +381,3 @@ main()
 
 
 
-
-
-const iconMenu = document.querySelector("#dashboard")
-const menu = document.querySelector("#menu")
-
-iconMenu.addEventListener('click', function () {
-    menu.classList.toggle("menu__show")
-})
-
-const navbar = document.querySelector("#navbar");
-const container = document.querySelector(".container")
-
-window.addEventListener("scroll", function () {
-    if (window.scrollY > 50) {
-        /*  navbar.classList.add("navbar__active"); */
-        container.classList.add("navbar__active");
-    } else {
-        /* navbar.classList.remove("navbar__active"); */
-        container.classList.remove("navbar__active");
-    }
-
-
-});
