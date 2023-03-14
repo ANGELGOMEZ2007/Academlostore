@@ -277,7 +277,12 @@ async function main() {
         iconSun.addEventListener("click", function (){
             document.body.classList.toggle("darkmode");
         });
-        
+
+        if (document.body.classList.contains("darkmode")) {
+            localStorage.setItem('dark-mode','true');
+        }else{
+            localStorage.setItem('dark-mode','false');
+        }
     }
     modeDark()
    
