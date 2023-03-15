@@ -19,6 +19,10 @@
 
 <body>
 
+    <div class="container_loader">
+        <div class="loader"></div>
+    </div>
+
     <div class="box">
 
         <header class="container">
@@ -90,14 +94,14 @@
 
         </div>
         <!------------------------------------------------------------- FILTER ------------------------------------------------------------------------------->
-        <div class="controls">
-            <label>Filter:</label>
-            <button class="filter" data-filter="all">ALL</button>
-            <button class="filter" data-filter=".shirt">shirt</button>
-            <button class="filter" data-filter=".hoddie">Hoodie</button>
-            <button class="filter" data-filter=".sweater">Sweater</button>
+        <div class="box__filter">
+            <div class="controls">
+                <button class="filter" data-filter="all"><span>ALL</span></button>
+                <button class="filter" data-filter=".shirt"><span>shirt</span></button>
+                <button class="filter" data-filter=".hoddie"><span>Hoodie</span></button>
+                <button class="filter" data-filter=".sweater"><span>Sweater</span></button>
+            </div>
         </div>
-
         <!------------------------------------------------ Products body ------------------------------------------>
 
         <div class="products" id="filter">

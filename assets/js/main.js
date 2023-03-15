@@ -37,9 +37,7 @@ function printProducts(db) {
                     </h4>
                     
 
-                    <h3>${product.name}
-                    ${product.category}
-                    </h3>
+                    <h3>${product.name}</h3>
                     
                 </div>
 
@@ -232,10 +230,14 @@ function handleTotal(db) {
             }
 
         }
+
+
         db.products = currentProducts;
         db.cart = {}
         window.localStorage.setItem('products', JSON.stringify(db.products));
         window.localStorage.setItem('cart', JSON.stringify(db.cart));
+
+        location.reload();
         totalSumPriceItem(db);
         printProductsCard(db);
         printProducts(db);
@@ -255,19 +257,19 @@ function hanlePrintAmountProducts(db) {
 }
 
 function navbarMenuMove() {
-    
+
 
 
     const iconMenu = document.querySelector("#dashboard")
     const menu = document.querySelector("#menu")
-    
+
     iconMenu.addEventListener('click', function () {
         menu.classList.toggle("menu__show")
     })
-    
+
     /* const navbar = document.querySelector("#navbar"); */
     const container = document.querySelector(".container")
-    
+
     window.addEventListener("scroll", function () {
         if (window.scrollY > 50) {
             /*  navbar.classList.add("navbar__active"); */
@@ -276,8 +278,8 @@ function navbarMenuMove() {
             /* navbar.classList.remove("navbar__active"); */
             container.classList.remove("navbar__active");
         }
-    
-    
+
+
     });
 }
 
@@ -303,10 +305,49 @@ function modeDark() {
 
     if (localStorage.getItem('dark-mode') === 'true') {
         document.body.classList.add('darkmode');
-    }else{
+    } else {
         document.body.classList.add('dark-mode');
     }
-    
+
+}
+
+function filter() {
+    $(function () {
+        $('#filter').on('mixLoad', function () {
+            console.log('[event-handler] MixItUp Loaded');
+        });
+
+        $('#filter').on('mixStart', function () {
+            console.log('[event-handler] Animation Started')
+        });
+
+        $('#filter').on('mixEnd', function () {
+            console.log('[event-handler] Animation Ended')
+        });
+
+        $('#filter').mixItUp({
+            callbacks: {
+                onMixLoad: function () {
+                    console.log('[callback] MixItUp Loaded');
+                },
+                onMixStart: function () {
+                    console.log('[callback] Animation Started');
+                },
+                onMixEnd: function () {
+                    console.log('[callback] Animation Ended');
+                }
+            }
+        });
+    });
+}
+
+function reload() {
+    window.addEventListener('load', function () {
+        const containerLoader = document.querySelector(".container_loader");
+        containerLoader.style.opacity = 0
+        containerLoader.style.visibility = 'hidden'
+
+    });
 }
 
 async function main() {
@@ -328,40 +369,16 @@ async function main() {
     hanlePrintAmountProducts(db);
     navbarMenuMove()
     modeDark()
-   
+    filter()
+    reload()
+
 
 
 }
 main()
 
 
-$(function(){
-    $('#filter').on('mixLoad', function() {
-      console.log('[event-handler] MixItUp Loaded');
-    });
-    
-    $('#filter').on('mixStart', function() {
-      console.log('[event-handler] Animation Started')
-    });
-    
-    $('#filter').on('mixEnd', function() {
-      console.log('[event-handler] Animation Ended')
-    });
-    
-    $('#filter').mixItUp({
-      callbacks: {
-        onMixLoad: function() {
-          console.log('[callback] MixItUp Loaded');
-        },
-        onMixStart: function() {
-          console.log('[callback] Animation Started');
-        },
-        onMixEnd: function() {
-          console.log('[callback] Animation Ended');
-        }
-      }
-    });
-  });
+
 
 
 

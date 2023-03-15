@@ -2,6 +2,7 @@
 
 :root {
     --first-color: hsl(354, 78%, 60%);
+    --first-color2: hsl(182, 53%, 74%);
     --button-color: hsl(0, 0%, 17%);
     --button-color-alt: hsl(0, 0%, 21%);
     --card-color: hsl(0, 0%, 90%);
@@ -25,6 +26,39 @@
     box-sizing: border-box;
     font-family: Roboto;
 }
+
+/*-------------------------------------------------- preloaders ----------------------------------------------------------*/
+.container_loader{
+    background-color: var(--text-color-other-white);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    transition: background-color 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader{
+    border: 15px solid var(--first-color2);
+    border-top-color: var(--first-color) ;
+    border-top-style: groove;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+
+    -webkit-animation: spin 1.5s linear infinite ;
+    -o-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+
+    @keyframes spin {
+        from { transform: rotate(0deg);}
+        to { transform: rotate(360deg);}
+    }
+}
+
+/* -------------------------------------------------------------------------------------------------------------------- */
 
 html {
     scroll-behavior: smooth;
@@ -52,6 +86,7 @@ body {
 body.darkmode {
 
     --first-color: hsl(182, 53%, 74%);
+    --first-color2: hsl(354, 78%, 60%);
     --button-color: hsl(246, 16%, 12%);
     --button-color-alt: hsl(0, 0%, 28%);
     --card-color: hsla(246, 16%, 5%);
@@ -369,11 +404,20 @@ a {
 }
 
 .product__info h4 {
+    
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
+.product__info h3 {
+  cursor: pointer;
+}
+
+.product__info h3:hover {
+    color: var(--first-color);
+    transition: color .5s;
+}
 
 .product__info span {
     color: var(--text-color-light);
@@ -395,24 +439,42 @@ a {
 }
 
 /* -----------------------------------------------------------------------FILTER----------------------------------------------------------------------- */
+.box__filter{
+    margin-top: 5rem;
+    margin-bottom: 0;
+    padding: 1rem;
+    padding-right: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .controls {
+    width: 7rem;
+    padding-left: 0rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
     color: #eee;
+    gap: 1rem;
 }
 
 button {
-    background: #666;
-    color: #ddd;
+    background: transparent;
+    color: var(--text-color-other-black);
     cursor: pointer;
+    width: 100%;
+    padding: 1rem;
+    border: 0px;
 }
 
+
 button.active {
-    background: #68b8c4;
+    background: var(--first-color);
+    transition: background .7s;
 }
 
 .products .mix {
     display: none;
-    /* background-color: red */
 }
 
 
@@ -670,6 +732,13 @@ button.active {
 
     }
 
+    .box__filter{
+        padding-right: 15rem;
+    }
+
+    .controls {
+        grid-template-columns: 1fr 1fr 1fr 1fr ;
+    }
 
     .box__banner__text {
         margin: 8rem 0rem 8rem 0;
