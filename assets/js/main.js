@@ -336,19 +336,19 @@ main()
 
 
 $(function(){
-    $('#productsangel').on('mixLoad', function() {
+    $('#filter').on('mixLoad', function() {
       console.log('[event-handler] MixItUp Loaded');
     });
     
-    $('#productsangel').on('mixStart', function() {
+    $('#filter').on('mixStart', function() {
       console.log('[event-handler] Animation Started')
     });
     
-    $('#productsangel').on('mixEnd', function() {
+    $('#filter').on('mixEnd', function() {
       console.log('[event-handler] Animation Ended')
     });
     
-    $('#productsangel').mixItUp({
+    $('#filter').mixItUp({
       callbacks: {
         onMixLoad: function() {
           console.log('[callback] MixItUp Loaded');

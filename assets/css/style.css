@@ -38,7 +38,6 @@ body {
 
 *::-webkit-scrollbar {
     width: 8px;
-    /* width of the entire scrollbar */
 }
 
 *::-webkit-scrollbar-track {
@@ -299,6 +298,7 @@ a {
 
 /*------------------------------------------------------- card product -----------------------------------------------------------------*/
 
+
 .product__img img{
     transition: transform 0.5s;  
  }
@@ -392,6 +392,27 @@ a {
 
 .product__info h3 {
     font-size: medium;
+}
+
+/* -----------------------------------------------------------------------FILTER----------------------------------------------------------------------- */
+
+.controls {
+    color: #eee;
+}
+
+button {
+    background: #666;
+    color: #ddd;
+    cursor: pointer;
+}
+
+button.active {
+    background: #68b8c4;
+}
+
+.products .mix {
+    display: none;
+    /* background-color: red */
 }
 
 
