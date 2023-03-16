@@ -10,7 +10,7 @@ async function getProducts() {
 
         return res;
     } catch (error) {
-        console.log(error);
+        
     }
 }
 
@@ -37,8 +37,7 @@ function printProducts(db) {
                     </h4>
                     
 
-                    <h3>${product.name}</h3>
-                    
+                    <h3 class="name__products__modal">${product.name}</h3>
                 </div>
 
             </div>
@@ -118,8 +117,6 @@ function printProductsCard(db) {
     for (const product in db.cart) {
         const { quantity, price, name, image, id, amount } = db.cart[product];
         const total = price * amount;
-
-        console.log({ quantity, price, name, image, id, amount });
         html += `
                 <div class="card__product">
 
@@ -350,6 +347,48 @@ function reload() {
     });
 }
 
+/* function handleModal(db) {
+    
+    const productsHTML = document.querySelector(".products");
+    const modalHTML = document.querySelector(".modal");
+    modalHTML.innerHTML = '';
+    productsHTML.addEventListener("click", function (e) {
+        if (e.target.classList.contains("button__modal")) {
+            const id = Number(e.target.id);
+
+            const productFind = db.products.find(
+                (product) => product.id === id
+            );
+
+            let html = `
+            
+                    <div class="modal__product">
+                    
+                        <div class="modal__img">
+                            <img src="${productFind.image}" alt="imagen"/>
+                        </div>
+
+                        <div class="modal__info">
+                            <h4>${productFind.name} - ${productFind.category}</h4>
+                            <p>${productFind.description}</p>
+
+                            <div class="modal__info__price">
+                                <p class="modal__info__price--price">$${productFind.price.toFixed(2)}</p>
+                                <p>Stock: ${productFind.quantity}</p>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                `;
+            
+            modalHTML.innerHTML = html;
+        }
+
+    }); 
+
+}*/
+
 async function main() {
     const db = {
         products:
@@ -357,7 +396,6 @@ async function main() {
             await getProducts(),
         cart: JSON.parse(window.localStorage.getItem('cart')) || {},
     };
-
     printProducts(db);
     handleShowCart();
     addToCartFromProducts(db);
@@ -371,9 +409,9 @@ async function main() {
     modeDark()
     filter()
     reload()
-
-
-
+    console.log = console.warn = console.error = () => {
+        console.clear();
+      };
 }
 main()
 

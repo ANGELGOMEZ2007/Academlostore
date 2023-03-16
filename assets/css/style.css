@@ -410,14 +410,6 @@ a {
     gap: 1rem;
 }
 
-.product__info h3 {
-  cursor: pointer;
-}
-
-.product__info h3:hover {
-    color: var(--first-color);
-    transition: color .5s;
-}
 
 .product__info span {
     color: var(--text-color-light);
@@ -436,6 +428,90 @@ a {
 
 .product__info h3 {
     font-size: medium;
+}
+
+/* ----------------------------------------------------------------------MODAL --------------------------------------------------------------------*/
+
+.bg__modal{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0px;
+    left: 0px;
+    margin: 0;
+    position: fixed;
+    top: 18%;
+    left: 10%;
+    z-index: 7000;
+}
+
+
+.modal__img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__img img{
+    width: 300px;
+ }
+
+.modal {
+    width: 400px;
+    height: 500px;
+    border-radius: 1rem;
+    background-color: var(--container-color);
+    box-shadow: 0 .5rem 1rem rgba(55, 54, 54, 0.084);
+}
+
+
+
+.modal__info {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: var(--container-color);
+    position: relative;
+    color: var(--text-color-other-black);
+    gap: 0.5rem;
+}
+
+.modal__info h4 {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.modal__info .soldout {
+    display: inline-block;
+    font-weight: bold;
+    color: var(--button-color-alt);
+    background-color: var(--first-color);
+    padding: 0.3rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.modal__info h3 {
+    font-size: medium;
+}
+.modal__info__price{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.modal__info__price--price{
+    font-weight: 700;
+    color: var(--first-color);
+}
+
+
+.close__modal{
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2000;
 }
 
 /* -----------------------------------------------------------------------FILTER----------------------------------------------------------------------- */
@@ -822,6 +898,13 @@ button.active {
     .cart {
         width: 50vh;
 
+    }
+
+    .bg__modal{
+        position: fixed;
+        top: 24%;
+        left: 34%;
+        z-index: 7000;
     }
 
 }
